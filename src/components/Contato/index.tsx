@@ -5,6 +5,7 @@ import * as S from './styles'
 
 import { remover, editar } from '../../store/reducers/contatos'
 import ContatoClass from '../../models/Contato'
+import { ButtonSave, StyledInputMask } from '../../styles'
 
 type Props = ContatoClass
 
@@ -17,7 +18,7 @@ const Contato = ({
 }: Props) => {
   const dispatch = useDispatch()
   const [estaEditando, setEstaEditando] = useState(false)
-  const [telefone, setTelefone] = useState(descricaoOriginal.tel.toString())
+  const [tel, setTel] = useState(descricaoOriginal.tel.toString())
   const [email, setEmail] = useState(descricaoOriginal.email)
 
   useEffect(() => {
@@ -29,14 +30,14 @@ const Contato = ({
   function cancelaEdicao() {
     setEstaEditando(false)
     setEmail(descricaoOriginal.email)
-    setTelefone(descricaoOriginal.tel.toString())
+    setTel(descricaoOriginal.tel.toString())
   }
 
   function salvarEdicao() {
     const novaDescricao = {
       ...descricaoOriginal,
       email: email,
-      tel: parseInt(telefone.replace(/\D/g, ''), 10)
+      tel: parseInt(tel.replace(/\D/g, ''), 10)
     }
 
     dispatch(
@@ -63,7 +64,7 @@ const Contato = ({
       </S.Tag>
       <S.Descricao>
         {estaEditando ? (
-          <S.StyledInputMask
+          <StyledInputMask
             mask=""
             maskChar=""
             type="email"
@@ -76,17 +77,17 @@ const Contato = ({
         )}
       </S.Descricao>
       <S.Descricao>
-        <S.StyledInputMask
+        <StyledInputMask
           mask="(99) 99999-9999"
-          value={telefone}
+          value={tel}
           readOnly={!estaEditando}
-          onChange={(e) => setTelefone(e.target.value)}
+          onChange={(e) => setTel(e.target.value)}
         />
       </S.Descricao>
       <S.BarraAcoes>
         {estaEditando ? (
           <>
-            <S.ButtonSave onClick={salvarEdicao}>Salvar</S.ButtonSave>
+            <ButtonSave onClick={salvarEdicao}>Salvar</ButtonSave>
             <S.ButtonCancelRemove onClick={cancelaEdicao}>
               Cancelar
             </S.ButtonCancelRemove>

@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 
-import InputMask from 'react-input-mask'
 import variaveis from '../../styles/variaveis'
 
 import * as enums from '../../utils/enums/Contatos'
@@ -60,15 +59,6 @@ export const Descricao = styled.span`
   margin-top: 16px;
 `
 
-export const StyledInputMask = styled(InputMask)`
-  border: none;
-  background-color: transparent;
-  color: inherit;
-  font: inherit;
-  outline: none;
-  padding: 0;
-`
-
 export const BarraAcoes = styled.div`
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   padding-top: 16px;
@@ -84,10 +74,6 @@ export const Button = styled.button`
   background-color: #2f3640;
   border-radius: 8px;
   margin-right: 8px;
-`
-
-export const ButtonSave = styled(Button)`
-  background-color: ${variaveis.verde};
 `
 
 export const ButtonCancelRemove = styled(Button)`
