@@ -59,7 +59,8 @@ const contatosSlice = createSlice({
         state.itens[indexDaTarefa] = action.payload
       }
     },
-    cadastrar: (state, action: PayloadAction<Contato>) => {
+    cadastrar: (state, action: PayloadAction<Omit<Contato, 'id'>>) => {
+      console.log(action.payload)
       const contatoJaExiste = state.itens.find(
         (contato) =>
           contato.nome.toLowerCase() === action.payload.nome.toLocaleLowerCase()
@@ -68,12 +69,33 @@ const contatosSlice = createSlice({
       if (contatoJaExiste) {
         alert('Já existe uma tarefa com esse nome')
       } else {
-        state.itens.push(action.payload)
+        const ultimoContato = state.itens[state.itens.length - 1]
+
+        const contatoNovo = {
+          ...action.payload,
+          id: ultimoContato ? ultimoContato.id + 1 : 1
+        }
+        state.itens.push(contatoNovo)
+      }
+    },
+    alteraStatus: (
+      state,
+      action: PayloadAction<{ id: number; finalizado: boolean }>
+    ) => {
+      const indexDaTarefa = state.itens.findIndex(
+        (c) => c.id === action.payload.id
+      )
+
+      if (indexDaTarefa >= 0) {
+        state.itens[indexDaTarefa].status = action.payload.finalizado
+          ? enums.Status.VISUALIZADO
+          : enums.Status.PENDENTE
       }
     }
   }
 })
 
-export const { remover, editar, cadastrar } = contatosSlice.actions
+export const { remover, editar, cadastrar, alteraStatus } =
+  contatosSlice.actions
 
 export default contatosSlice.reducer

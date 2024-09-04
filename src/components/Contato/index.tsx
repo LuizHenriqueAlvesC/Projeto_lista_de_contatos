@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import * as S from './styles'
+import * as enums from '../../utils//enums/Contatos'
 
-import { remover, editar } from '../../store/reducers/contatos'
+import { remover, editar, alteraStatus } from '../../store/reducers/contatos'
 import ContatoClass from '../../models/Contato'
-import { ButtonSave, StyledInputMask } from '../../styles'
+import { Button, ButtonSave, StyledInputMask } from '../../styles'
 
 type Props = ContatoClass
 
@@ -49,13 +50,32 @@ const Contato = ({
         nome
       })
     )
-
     setEstaEditando(false)
+  }
+
+  function alteraStatusContato(evento: ChangeEvent<HTMLInputElement>) {
+    dispatch(
+      alteraStatus({
+        id,
+        finalizado: evento.target.checked
+      })
+    )
   }
 
   return (
     <S.CaixaDeContato>
-      <S.Nome>{nome}</S.Nome>
+      <label htmlFor={nome}>
+        <input
+          type="checkbox"
+          checked={status === enums.Status.VISUALIZADO}
+          id={nome}
+          onChange={alteraStatusContato}
+        />
+        <S.Nome>
+          {estaEditando && <em>Editando: </em>}
+          {nome}
+        </S.Nome>
+      </label>
       <S.Tag parametro="prioridade" prioridade={prioridade}>
         {prioridade}
       </S.Tag>
@@ -94,7 +114,7 @@ const Contato = ({
           </>
         ) : (
           <>
-            <S.Button onClick={() => setEstaEditando(true)}>Editar</S.Button>
+            <Button onClick={() => setEstaEditando(true)}>Editar</Button>
             <S.ButtonCancelRemove onClick={() => dispatch(remover(id))}>
               Remover
             </S.ButtonCancelRemove>

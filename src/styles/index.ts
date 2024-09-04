@@ -1,7 +1,6 @@
 import styled, { createGlobalStyle } from 'styled-components'
 import InputMask from 'react-input-mask'
 import variaveis from './variaveis'
-import { Button } from '../components/Contato/styles'
 
 const EstiloGlobal = createGlobalStyle`
 * {
@@ -15,12 +14,14 @@ const EstiloGlobal = createGlobalStyle`
 export const Container = styled.div`
   display: grid;
   grid-template-columns: 224px auto;
+  background-color: #eee;
 `
 
 export const MainContainer = styled.main`
-  padding: 0 40px;
-  height: 80vh;
+  height: 100vh;
   overflow-y: scroll;
+  padding-right: 40px;
+  margin: 0 auto;
 `
 
 export const Titulo = styled.h2`
@@ -41,10 +42,6 @@ export const Campo = styled.input`
   width: 100%;
 `
 
-export const ButtonSave = styled(Button)`
-  background-color: ${variaveis.verde};
-`
-
 export const StyledInputMask = styled(InputMask)`
   border: none;
   background-color: transparent;
@@ -54,4 +51,29 @@ export const StyledInputMask = styled(InputMask)`
   padding: 0;
 `
 
+export const CampoComMascara = styled(InputMask)`
+  padding: 8px;
+  background-color: #fff;
+  border-radius: 8px;
+  font-weight: bold;
+  color: #666666;
+  border-color: #666666;
+  width: 100%;
+`
+
+export const Button = styled.button`
+  color: #fff;
+  font-weight: bold;
+  font-size: 12px;
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  background-color: ${variaveis.azulEscuro};
+  border-radius: 8px;
+  margin-right: 8px;
+`
+
+export const ButtonSave = styled(Button)`
+  background-color: ${variaveis.verde};
+`
 export default EstiloGlobal

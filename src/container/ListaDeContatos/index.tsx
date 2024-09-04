@@ -53,8 +53,8 @@ const ListaDeContatos = () => {
 
   return (
     <MainContainer>
-      <Titulo as="p">{mensagem}</Titulo>
       <ul>
+        <Titulo as="p">{mensagem}</Titulo>
         {contatos.map((c) => (
           <li key={c.nome}>
             <Contato
