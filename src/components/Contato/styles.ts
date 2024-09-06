@@ -74,3 +74,18 @@ export const BarraAcoes = styled.div`
 export const ButtonCancelRemove = styled(Button)`
   background-color: ${variaveis.vermelho};
 `
+export const StyledInputNome = styled.input`
+  border: none;
+  background-color: transparent;
+  font-size: inherit;
+  font-weight: bold;
+  color: inherit;
+  width: auto;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  font-family: inherit;
+  &:focus {
+    outline: none;
+  }
+`

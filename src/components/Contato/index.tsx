@@ -7,6 +7,7 @@ import * as enums from '../../utils//enums/Contatos'
 import { remover, editar, alteraStatus } from '../../store/reducers/contatos'
 import ContatoClass from '../../models/Contato'
 import { Button, ButtonSave, StyledInputMask } from '../../styles'
+import { StyledInputNome } from './styles'
 
 type Props = ContatoClass
 
@@ -14,13 +15,14 @@ const Contato = ({
   descricao: descricaoOriginal,
   prioridade,
   status,
-  nome,
+  nome: nomeOriginal,
   id
 }: Props) => {
   const dispatch = useDispatch()
   const [estaEditando, setEstaEditando] = useState(false)
   const [tel, setTel] = useState(descricaoOriginal.tel.toString())
   const [email, setEmail] = useState(descricaoOriginal.email)
+  const [nome, setNome] = useState(nomeOriginal)
 
   useEffect(() => {
     if (email.length > 0) {
@@ -32,6 +34,7 @@ const Contato = ({
     setEstaEditando(false)
     setEmail(descricaoOriginal.email)
     setTel(descricaoOriginal.tel.toString())
+    setNome(nomeOriginal)
   }
 
   function salvarEdicao() {
@@ -72,8 +75,18 @@ const Contato = ({
           onChange={alteraStatusContato}
         />
         <S.Nome>
-          {estaEditando && <em>Editando: </em>}
-          {nome}
+          {estaEditando ? (
+            <>
+              <em>Editando: </em>
+              <StyledInputNome
+                type="text"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+              />
+            </>
+          ) : (
+            nome
+          )}
         </S.Nome>
       </label>
       <S.Tag parametro="prioridade" prioridade={prioridade}>
